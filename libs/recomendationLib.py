@@ -1,19 +1,19 @@
 from math import sqrt
-
+from mongo import mongo_requests
 # Avaliação com relação a testes
-element_base_dict = {'Jordan': 0, 'Kazuo': 0, 'Hendria': 0, 'Cassio': 0, 'Paulo': 0, 'Andressa': 0}
-
-users = {'Arthur': {'Jordan': 5, 'Kazuo': 3, 'Hendria': 5, 'Cassio': 2},
-         'Rafael': {'Jordan': 2, 'Kazuo': 5, 'Cassio': 1},
-         'Gabrielle': {'Jordan': 4, 'Hendria': 4, 'Kazuo': 3, 'Paulo': 2, 'Andressa': 5},
-         'Frederico': {'Jordan': 1, 'Kazuo': 5, 'Hendria': 3},
-         'Bruna': {'Jordan': 5, 'Hendria': 2, 'Cassio': 4},
-         'Thiago': {'Kazuo': 2, 'Hendria': 4, 'Cassio': 3},
-         'José': {'Kazuo': 3, 'Hendria': 3, 'Cassio': 4},
-         'Daniel': {'Jordan': 5, 'Kazuo': 1, 'Hendria': 5, 'Cassio': 5},
-         'Victor': {'Hendria': 3, 'Cassio': 1},
-         'Novato': {'Hendria': 2}
-         }
+# element_base_dict = {'Jordan': 0, 'Kazuo': 0, 'Hendria': 0, 'Cassio': 0, 'Paulo': 0, 'Andressa': 0}
+#
+# users = {'Arthur': {'Jordan': 5, 'Kazuo': 3, 'Hendria': 5, 'Cassio': 2},
+#          'Rafael': {'Jordan': 2, 'Kazuo': 5, 'Cassio': 1},
+#          'Gabrielle': {'Jordan': 4, 'Hendria': 4, 'Kazuo': 3, 'Paulo': 2, 'Andressa': 5},
+#          'Frederico': {'Jordan': 1, 'Kazuo': 5, 'Hendria': 3},
+#          'Bruna': {'Jordan': 5, 'Hendria': 2, 'Cassio': 4},
+#          'Thiago': {'Kazuo': 2, 'Hendria': 4, 'Cassio': 3},
+#          'José': {'Kazuo': 3, 'Hendria': 3, 'Cassio': 4},
+#          'Daniel': {'Jordan': 5, 'Kazuo': 1, 'Hendria': 5, 'Cassio': 5},
+#          'Victor': {'Hendria': 3, 'Cassio': 1},
+#          'Novato': {'Hendria': 2}
+#          }
 
 
 def __manhathan(user_1_evaluations, user_2_evaluations):
@@ -250,15 +250,24 @@ def __recomend_knn(username, users , element_base_dict, k):
     return sorted_dict
 
 
-def recomend_api(username, service):
+def recomend_api(username, service, is_company = False):
 
+    users = mongo_requests.mount_users(service, is_company=is_company)
+    element_base_dict = mongo_requests.mount_element_base_dict(service, is_company=is_company)
     knn = __recomend_knn(username, users, element_base_dict, 3)
-    if len(knn) > 0:
-        return knn[0]
+    if len(knn) > 3:
+        recomendation = []
+        recomendation.append(knn[0])
+        recomendation.append(knn[1])
+        recomendation.append(knn[2])
+        return recomendation
     else:
         return False
 
 if __name__ == '__main__':
 
-    recomend = recomend_api('Novato')
-    print(recomend)
+    # recomend = recomend_api('Novato')
+    # print(recomend)
+
+    recomendation = recomend_api("adriana alves", "ios_testing", is_company=True)
+    print(recomendation)
