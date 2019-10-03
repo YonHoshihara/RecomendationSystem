@@ -91,5 +91,5 @@ def get_all_services():
     return services
 
 
-print(evaluate("carolinne de souza", "ios_testing", "yago kaic", 5, is_company=True))
+print(populate())
 

@@ -1,20 +1,21 @@
 <div class="busca-header">
   <input matInput ng-model="servico">
-  <button mat-icon-button color="primary">
+  <button mat-icon-button color="primary" (click) = "recommend(service)">
     <mat-icon class="search"></mat-icon></button> 
 </div>
 
-<div class="busca-content">
-  <table ngFor="item in neighbors">
+<div class="busca-content" *ngIf="resultList">
+  <table ngFor="item in resultList">
     <tr>
       <th class="text-center">Nome</th>
       <th class="text-center">Contato</th>
       <th class="text-center">Status</th>
     </tr>
     <tr>
-      <th class="text-center">item.nome</th>
-      <th class="text-center">item.contato</th>
-      <th class="text-center">item.status</th>
+      <td class="text-center">item.nome</td>
+      <td class="text-center">item.contato</td>
+      <td class="text-center">item.status</td>
+      <td class="text-center"><button mat-icon-button></button></td>
     </tr>
   </table> 
 </div>

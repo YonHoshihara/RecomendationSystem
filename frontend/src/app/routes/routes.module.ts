@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from '../search/search.component';
 
 const routes: Routes = [
-  {path: 'search', component:SearchComponent}
+  {path: 'search/:username', component:SearchComponent}
 ]
 
 @NgModule({
@@ -12,7 +12,7 @@ const routes: Routes = [
     RouterModule
   ],
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes,{anchorScrolling: 'enabled', scrollPositionRestoration: 'enabled'})
   ]
 })
 export class RoutesModule {}
