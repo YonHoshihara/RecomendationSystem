@@ -8,7 +8,8 @@ app = Flask(__name__)
 @app.route('/recomend', methods=['POST'])
 def recomend():
     if request.method == 'POST':
-        return {'recomendation': recomendationLib.recomend_api(request.form['username'], request.form['service'])}
+        return {'recomendation': recomendationLib.recomend_api(request.form['username'], request.form['service'],
+                                                               is_company=request.form['is_company'])}
 
 @app.route('/evaluate', methods=['POST'])
 def evaluate():
