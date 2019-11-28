@@ -74,8 +74,10 @@ def populate():
 
     path = "empresas_estagiarios.csv"
     path_1 =  "estagiarios.csv"
+    path_2 = "profissionais_conteudo.csv"
     populate_database(path_1, 'ios_testing', True)
     populate_database(path, 'ios_testing')
+    populate_database(path_2, 'ios_classify')
 
 
 def evaluate (username, service, evaluation_elment, point, is_company=False):
@@ -160,3 +162,4 @@ def mount_element_base_dict(service,  is_company=False):
 # users_dict = mount_users("ios_testing",True)
 # element_base_dict = mount_element_base_dict("ios_testing", True)
 # print(element_base_dict)
+populate()

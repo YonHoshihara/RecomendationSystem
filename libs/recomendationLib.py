@@ -1,5 +1,6 @@
 from math import sqrt
 from mongo import mongo_requests
+from mongo import convert_data
 # Avaliação com relação a testes
 # element_base_dict = {'Jordan': 0, 'Kazuo': 0, 'Hendria': 0, 'Cassio': 0, 'Paulo': 0, 'Andressa': 0}
 #
@@ -264,10 +265,29 @@ def recomend_api(username, service, is_company = False):
     else:
         return False
 
+def classify(username, service, is_company = False):
+    #Classify the itemName based on user ratings
+    #Should really have items and users as parameters
+    # first find nearest neighbor
+
+    recomendation = recomend_api(username, service, is_company=is_company)
+    classifyVector = convert_data.loadCSV()
+    #print("recomendation",recomendation)
+    rating = []
+    for recomendationItem in recomendation:
+        #print(classifyVector[username.upper().strip()],">>>",recomendationItem.upper().replace(" ",""))
+        if(recomendationItem.upper().replace(" ","") in classifyVector[username.upper().strip()]):
+            #print(">>>>>>>>>>",classifyVector[username.upper().strip()][recomendationItem.upper().replace(" ","")])
+            if(int(classifyVector[username.upper().strip()][recomendationItem.upper().replace(" ","")]) > 3):
+                rating.append(recomendationItem)
+    print("rating",rating)
+
+    return rating
+
 if __name__ == '__main__':
 
     # recomend = recomend_api('Novato')
     # print(recomend)
 
     recomendation = recomend_api("adriana alves", "ios_testing", is_company=True)
-    print(recomendation)
+    #print(recomendation)

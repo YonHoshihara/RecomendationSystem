@@ -100,4 +100,4 @@ for j in users:
         if (users[j][key]==""):
             del backup[j][key]
 
-print(recommend('APA COMERCIO DE MOVEIS', backup))
+#print(recommend('APA COMERCIO DE MOVEIS', backup))
